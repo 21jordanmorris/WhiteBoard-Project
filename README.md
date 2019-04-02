@@ -3,6 +3,10 @@
 # Project Team (for this version)
   * Taylor Smith
   * Jordan Morris
+  
+# Reason for fork:
+
+This version is the web app created in CSC 3380 styled by me (Jordan Morris). The other version is the same web app, with the same functionality, styled by others.
 
 # Concept
 
