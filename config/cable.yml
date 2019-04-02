@@ -6,4 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:ef91a91645601e9107f0dd11899afa3d@dory.redistogo.com:11587/
+  url: redis://localhost:6379/1
+  channel_prefix: WhiteBoard-Project_production

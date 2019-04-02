@@ -1,44 +1,21 @@
-<!DOCTYPE html>
-<h2>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign Up</title>
-  <link rel = "stylesheet" href="app/assets/stylesheets/bootstrap.min.css" />
-  <link rel = "stylesheet" type="text/css" href="app/assets/stylesheets/whiteboardNew" />
-</h2>
-<body class="bg">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-4 col-xs-12"></div>
-     <div class="col-md-4 col-sm-4 col-xs-12">
+<div class="user-container">
+    <div class="devise-name">
+        <a id="name-link" href="../../home/index"><h2>edit<span id='board-name'>Whiteboard</span></h2></a>
+    </div>
 
-        <%= form_for @whiteboard, html: {:class => 'form-container'} do |f| %>
-          <h3>Edit Whiteboard</h3>
-          <div>
-             <%= f.hidden_field :creator_email %>
+    <div class="user-form">
+        <%= form_for @whiteboard do |f| %>
+            <div class="field">
+                <%= f.text_field :title, placeholder: "Title", spellcheck: "false" %>
             </div>
 
-          <div class="form-group">
-            <%= f.label :title %>
-            <%= f.text_field :title, class:'form-control', placeholder: 'title' %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :description %>
-            <%= f.text_field :description, class:'form-control', placeholder:'description' %>
-          </div>
-
-          <div class="form-group">
-            <%= f.submit "Edit Whiteboard", class:'btn btn-success btn-block' %>
-          </div>
-
+            <div class="field">
+                <%= f.text_field :description, placeholder: "Description", spellcheck: "false" %>
+            </div>
+            
+            <div>
+                <%= f.submit "Update", class: 'submit-button' %>
+            </div>
         <% end %>
-
-      </div>
-    <div class="col-md-4 col-sm-4 col-xs-12"></div>
-  </div>
+    </div>
 </div>
-</body>
-  <script src="/assets/javascripts/jquery.min.js"></script>
-  <script src="/assets/javascripts/bootstrap.min.js"></script>
-</html>

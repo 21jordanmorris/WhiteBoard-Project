@@ -1,50 +1,39 @@
-<!DOCTYPE html>
-<%= devise_error_messages! %>
+<body class="scroll-for-forms">
+  <div class="user-container">
+    <div class="devise-name">
+      <a id="name-link" href="../home/index"><h2>log<span id='board-name'>In</span></h2></a>
+    </div>
 
+    <%= devise_error_messages! %>
 
-<h2>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Log In</title>
-  <link rel = "stylesheet" href="app/assets/stylesheets/bootstrap.min.css" />
-  <link rel = "stylesheet" type="text/css" href="app/assets/stylesheets/login.css"/>
-</h2>
-<body class="bg">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-4 col-xs-12"></div>
-     <div class="col-md-4 col-sm-4 col-xs-12">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name),html: {class: "form-container"}) do |f| %>
-          <h3>Log In</h3>
-          <div class="form-group">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control', placeholder:'email-address' %>
+    <div class="user-form">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <!--<%= f.label :email %><br />-->
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", spellcheck: "false" %>
+        </div>
+
+        <div class="field">
+          <!--<%= f.label :password %><br />-->
+          <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="remember-me">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, id: 'remember-me-label' %>
           </div>
+        <% end -%>
 
-          <div class="password">
-            <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "current-password", class:'form-control',placeholder:'password' %>
-          </div>
+        <div class="actions">
+          <%= f.submit "Log in", class: 'submit-button' %>
+        </div>
 
-          <% if devise_mapping.rememberable? -%>
-            <div class="remember">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </div>
-          <% end -%>
-          <div class="form-group">
-            <%= f.submit "Log In", class:'btn btn-success btn-block' %>
-          </div>
-
-          <div class="devise-links">
-            <%= render "devise/shared/links" %>
-          </div>
-        <% end %>
+      <% end %>
+    
+      <div class="links">
+        <%= render "devise/shared/links" %>
       </div>
-    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
   </div>
 </div>
-</body>
-  <script src="/assets/javascripts/jquery.min.js"></script>
-  <script src="/assets/javascripts/bootstrap.min.js"></script>
-</html>

@@ -1,104 +1,63 @@
-<!DOCTYPE html>
-<html> 
-	<head> 
-		<meta charset="utf-8"/>
-		<title>Bootstrap grid </title> 
+<body class="home-body">
+	<div class="home-container">
+		<div class="home-wrapper" id="wrapper">
+			<div class="cover" id="cover">
+				<!-- Navigation -->
+				<nav class="nav-bar">
+					<div class="name home-name">
+						<h2>white<span id='board-name'>Board</span></h2>
+					</div>
+					<ul class='nav-links'>
+						<li><a href='../whiteboards'>Whiteboards</a></li>
+						<li><a href='../whiteboards/new'>Create New</a></li>
+						<% if current_user %>
+						<li><a href=<%= edit_user_registration_path %>><%= @username %></a></li>
+						<li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+						<% else %>
+						<li><a href=<%= new_user_registration_path %>>Sign Up</a></li>
+						<li><a href=<%= new_user_session_path %>>Login</a></li>
+						<% end %>
+					</ul>
+				</nav>
 
-		<!-- We link the CDN css files here --> 
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="app/assets/stylesheets/bootstrap.min.css" > 
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="app/assets/stylesheets/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="app/assets/stylesheets/main.css">
-
-	</head>
-	<body class = "home-page">
-		<!-- navbar -->  
-	<nav class="navbar navbar-inverse">
- 		<div class="container-fluid">
-   		 <div class="navbar-header">
-      		<a class="navbar-brand">WhiteBoard</a>
-    	</div>
-    		<ul class="nav navbar-nav">
-     		<li class="active"><a href="../home/index">Home</a></li>
-     		 <li><a href="../whiteboards">My Whiteboards</a></li>
-   		</ul>
-    		<ul class="nav navbar-nav navbar-right">
-				<% if current_user %>
-				<li><a href=<%= edit_user_registration_path %>><span class="glyphicon glyphicon-user"></span><%= @username %></a></li>
-				<li><a class="glyphicon" rel="nofollow" data-method="delete" href="/users/sign_out">Sign Out</a></li>
-				<% else %>
-     		 	<li><a href=<%= new_user_registration_path %>><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-     			<li><a href=<%= new_user_session_path %>><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				<% end  %>
-			</ul>
-  		</div>
-	</nav>
-	<div class=" description ">
-   		<h1> WELCOME TO WHITEBOARD</h1>
-		<h2> A Collabotative Whiteboard</h2>
-   	<div class="container text-center">    
-  		<h3>How it works</h3>
-<br>
-  	<div class="row">
-    	<div class="col-sm-4">
-      		<img src="http://chittagongit.com//images/sign-up-icon-png/sign-up-icon-png-28.jpg" class="img-responsive" style="width:100%" alt="Image">
-      		<p>Easy sign up - All you need is an email! </p>
-    	</div>
-    	<div class="col-sm-4"> 
-      		<img src="https://image.flaticon.com/icons/png/512/33/33592.png" class="img-responsive" style="width:100%" alt="Image">
-      		<p>Start making whiteboards for personal ideas or drawings! </p>    
-    	</div>
-    	<div class="col-sm-4">
-      		<img src="https://static.thenounproject.com/png/745988-200.png" class="img-responsive" style="width:100%" alt="Image">
-      		<p>Share your whiteboard with others to collaborate on ideas!  </p>
-    	</div>
-  </div>
-<br>
-	<div class="input-group">
-		<input id="home-search-bar" type="text" class="form-control", placeholder="Enter Whiteboard id...", spellcheck="false">
-		<span class="input-group-btn">
-			<button id="home-page-search-button" class="btn btn-default" type="button" style="margin-top: 0;">Go!</button>
-		</span>
+				<!-- Showcase -->
+				<section class="home-showcase">
+					<div class="home-showcase-grid1">
+						<h1>Create a whiteboard<br>and start collaborating<br>today!</h1>
+						<input id="homeinput" class="homeinput" type="text" spellcheck="false" placeholder="Whiteboard id..."><br>
+						<button id="goto-button" class="submit-button">Go to Whiteboard</button>
+					</div>
+					<div class="home-showcase-grid2">
+						<%= image_tag('showcaseimage.png')%>
+					</div>
+				</section>
+			</div>
+		</div>
 	</div>
-		<% if current_user %>
-			<a href="../whiteboards/new"><button class="btn btn-secondary btn-lg">CREATE NEW</button></a>
-		<% else %>
- 			<a href=""><button class="btn btn-secondary btn-lg">SIGN UP</button></a>  
-		<% end %>
-		
+</body>
 
-	<!-- Javascript files should be linked at the bottom of the page --> 
-		<script src="/assets/javascripts/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-		<script src="/assets/javascripts/bootstrap.min.js"></script>
-	</body>
+<script>
+	$("#goto-button").click(function() {
+		var wbpath = document.getElementById('homeinput').value;
+		var actualPath = 'http://localhost:3000/whiteboards/' + wbpath;
 
-	<script>
-		$('#home-page-search-button').click(function() {
-			var wbpath = document.getElementById('home-search-bar').value;
-			var actualPath = 'https://csc3380whiteboard.herokuapp.com/whiteboards/' + wbpath;
-
-			$.ajax({
-				type: 'HEAD',
-				url: actualPath,
-				success: function() {
-					window.location.assign(actualPath);
-				},
-				error: function() {
-					var obj = document.getElementById('home-search-bar');
-					var origBorder = obj.style.border;
-					var origColor = obj.style.color;
-
-					obj.style.border = "2px solid red";
-					obj.style.color = "red";
-
-					setTimeout(function() {
-						obj.style.border = origBorder;
-						obj.style.color = origColor;
-					}, 3000);
-				}
-			});
+		$.ajax({
+    		type: 'HEAD',
+    		url: actualPath,
+			success: function() {
+        		window.location.assign(actualPath);
+			},
+			error: function() {
+				var obj = document.getElementById('homeinput');
+				var origBorder = obj.style.borderBottom;
+				var origColor = obj.style.color;
+				obj.style.borderBottom = "2px solid red";
+				obj.style.color = "red";
+				setTimeout(function(){
+					obj.style.color = origColor;
+					obj.style.borderBottom = origBorder;
+   				}, 3000);
+			}
 		});
-	</script>
-</html>
+	});
+</script>

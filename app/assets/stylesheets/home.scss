@@ -1,21 +1,180 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.home-info-buttons {
-    margin: 3rem 3rem 3rem 3rem;
-    
+.home-body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary);
+    font-family: 'Nunito Sans', sans-serif;
 }
 
-.user-account-buttons {
-    float: right;
+.cover {
+    height: 100vh;
+    border: 1px solid var(--primary);
 }
 
-.nav-buttons {
+.name {
+    position: absolute;
+    color: var(--secondary);
+    padding: 2rem;
+    text-align: left;
+    font-size: 3em;
+}
+
+.home-name {
+    padding-left: 1.7em;
+}
+
+#board-name {
+    color: var(--tertiary);
+}
+
+.nav-bar {
+    margin: 2em; 
+    margin-top: -1em;
+}
+
+.nav-bar ul {
+    padding: 1rem;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: right;
+    text-align: center;
+}
+
+.nav-bar a:not(#whiteboard-link-buttons) {
+    text-decoration: none;
+    color: var(--secondary);
+    text-transform: uppercase;
+    display: block;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-top: 25px; //CHANGE
+}
+
+.nav-bar a:hover:not(#whiteboard-link-buttons) {
+    color: var(--tertiary);
+}
+
+.home-showcase {
+    height: 50vh;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 10vh;
+}
+
+.home-showcase-grid1 {
+    display: block;
+    position: center;
     float: left;
+    padding: 5em;
+    margin-top: -5em;
 }
 
-.main-header {
-    padding: 5rem 5rem 5rem 5rem;
-    align-content: center;
-    float: center;
+.home-showcase h1 {
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-size: 3em;
+    font-weight: 999;
+}
+
+.home-showcase img {
+    float: right;
+    padding-right: 5em;
+    height: 50vh;
+    width: 90vh;
+}
+
+.homeinput {
+    background-color: inherit;
+    color: #fff;
+    border: none;
+    border-bottom: 2px solid var(--secondary);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 40vw;
+    font-size: 2rem;
+}
+
+.homeinput:focus {
+    outline-width: 0;
+}
+
+/*
+.goto-button {
+    -webkit-transition-duration: 0.4s; /* Safari 
+    transition-duration: 0.4s;
+    border-radius: 9px;
+    color: var(--primary);
+    background-color: var(--secondary);
+    text-transform: uppercase;
+    min-width: 25vw;
+    height: 2.5vw;
+    border: 2px solid var(--secondary);
+}
+
+.goto-button:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+.goto-button:focus {
+    outline-width: 0;
+} */
+
+@media only screen and (max-width: 1025px) {
+    .home-showcase img {
+        max-width: 500px;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .home-showcase {
+        display: block;
+    }
+    
+    .home-showcase img {
+        display:none;
+        height: 0;
+        width: 0;
+    }
+}
+
+@media only screen and (max-width: 730px) {
+    .name {
+        display: block;
+        float: none;
+        position: relative;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav-bar ul {
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: -2rem;
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    .home-showcase-grid1 {
+        float: center;
+        text-align: center;
+        align-items: center;
+        position: relative;
+        padding-left: 0;
+        padding-top: 1em;
+        padding-right: 0;
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    .nav-bar a {
+        font-size: 1.3rem;
+        margin-top: -1rem;
+    }
 }

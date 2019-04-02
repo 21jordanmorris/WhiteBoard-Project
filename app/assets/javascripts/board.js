@@ -15,19 +15,19 @@ App.messages = App.cable.subscriptions.create('DrawChannel', {
 });
 
 $(function() { 
+
 	var time = $.now();
 	var down = false; //Class Variable to track is mouse is down
 	var drawMode = true;
 
 	canvas = $("#board");
+	console.log(canvas.height);
+	console.log(canvas.width);
 	context = canvas[0].getContext("2d");
 	context.canvas.height = canvas.height();//set the Canvas width and Height
 	context.canvas.width = canvas.width();
-	$('#savedImage').on('load', function() {
-		context.drawImage($('#savedImage')[0],0,0);
-	});
-	if($('#savedImage') != null){
-		context.drawImage($('#savedImage')[0],0,0);
+	if (image){
+		context.drawImage(image,0,0);
 	}
 	canvas.on("mousedown", function(e){
 		if(drawMode) {down = true;} //set the class variable to down
@@ -69,13 +69,13 @@ $(function() {
 				}
 				xPrev = x; //set the previous position
 				yPrev = y;
-			}
 		}
-		else {
-			// Lets user scroll again, no drawing.
-			$(document).unbind('touchmove');
-		}
-		});
+	}
+	else {
+		// Lets user scroll again, no drawing.
+		$(document).unbind('touchmove');
+	}
+	});
 	canvas.on('mouseup mouseleave touchend',function(e){
 		down = false; //set the class variable to not down
 		xPrev = null;  //reset the previous positions of the line
@@ -145,7 +145,7 @@ $(function() {
 		}
 	}
 
-	document.addEventListener('keydown', function(event) {
+	/*document.addEventListener('keydown', function(event) {
 	    if(event.keyCode == 49) {
 	    	setTool(new marker(5,"blue"));
 			var tag = document.getElementById('tag');
@@ -176,6 +176,36 @@ $(function() {
 
 	$("#Color").change(function() {
 		setTool(new marker(tool.size,$('#Color').val()));
+	});*/
+
+	$('#marker').click(function() {
+		setTool(new marker(5,"blue"));
+		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
+		changeSingleButtonColor('marker', '#F64C72');
+	});
+	
+	$('#highlighter').click(function() {
+		setTool(new highlighter(20,"yellow"));
+		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
+		changeSingleButtonColor('highlighter', '#F64C72');
+	});
+	
+	$('#eraser').click(function() {
+		setTool(new marker(100,"white"));
+		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
+		changeSingleButtonColor('eraser', '#F64C72');
+	});
+	
+	$('#plus').click(function() {
+		setTool(new marker(tool.size+5,document.getElementById('Color').value));
+		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
+		changeSingleButtonColor('plus', '#F64C72');
+	});
+	
+	$('#minus').click(function() {
+		setTool(new marker(tool.size-5,document.getElementById('Color').value));
+		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
+		changeSingleButtonColor('minus', '#F64C72');
 	});
 
 	var tool = new marker(5,"blue"); //default marker tool of  size and blue color
@@ -193,19 +223,19 @@ function dataURLtoBlob(dataURL) {
  	return new Blob([new Uint8Array(array)], {type: 'image/png'});
 }
 
+$("#save").click(function() {
+	saveURL(document.querySelector('#board').toDataURL());
+	alert("Whiteboard successfully saved!");
+});
+
 $('#drawmode').click(function() {
 	drawMode = !drawMode;
 	var drawModeButton = document.getElementById('drawmode');
 	if(drawMode) 
-		drawModeButton.style.backgroundColor = 'green';
+		drawModeButton.style.color = 'green';
 	else
-		drawModeButton.style.backgroundColor = 'red';
+		drawModeButton.style.color = 'red';
 });
-
-$("#save").click(function() {
-	saveURL(document.querySelector('#board').toDataURL());
-}
-);
 
 function saveURL(dataURL) {
 	var file= dataURLtoBlob(dataURL);
@@ -234,4 +264,16 @@ function drawLine(xPrev,yPrev,xPos,yPos,color,size,highlighter) {
 	context.lineTo(xPos,yPos);
 	context.stroke();
 
+}
+
+function changeClassButtonColor(className, color) {
+	var restButtons = document.getElementsByClassName(className);
+	for(var i = 0; i < restButtons.length; i++) {
+	  restButtons[i].style.color = color;
+	}
+}
+
+function changeSingleButtonColor(idName, color) {
+  var button = document.getElementById(idName);
+	button.style.color = color;
 }

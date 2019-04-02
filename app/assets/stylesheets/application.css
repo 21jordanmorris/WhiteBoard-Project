@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+ @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+ @import url('https://fonts.googleapis.com/css?family=Catamaran');
+ 
+ :root {
+     --primary: #242582;
+     --secondary: #F64C72;
+     --tertiary: rgb(125, 99, 143);
+ }

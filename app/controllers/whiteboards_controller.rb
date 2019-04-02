@@ -52,9 +52,10 @@ class WhiteboardsController < ApplicationController
     end
 
     def save
-        obj = S3_BUCKET.object(params[:id])
         @whiteboard = Whiteboard.friendly.find(params[:id])
-        obj.put({acl:'public-read',body: params[:image].read})
+    	File.open("#{Rails.root}/app/assets/images/#{@whiteboard.hash_id}.png", 'wb') do |f|
+        f.write(params[:image].read)
+        end
     end
 
     def showcable
