@@ -1,13 +1,8 @@
 # Collaborative Whiteboard 
 
-# Project Team
+# Project Team (for this version)
   * Taylor Smith
-  * Terry Shipman
-  * Ahmonya Edwards
   * Jordan Morris
-  * Collin Ludwig
-  * Derek Delahoussaye
-
 
 # Concept
 
