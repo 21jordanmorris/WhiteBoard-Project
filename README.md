@@ -7,4 +7,4 @@ Collaboration with users or coworkers on the internet often times requires someo
 
 # Reason for fork
 
-This version is the web app created in CSC 3380 styled by me (Jordan Morris). The other version is the same web app, with the same functionality, styled by others.
+This version is the web app created in CSC 3380 styled by me (Jordan Morris). The master version is the same web app, with the same functionality, styled by others.
