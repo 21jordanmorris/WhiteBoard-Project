@@ -19,6 +19,7 @@ $(function() {
 	var time = $.now();
 	var down = false; //Class Variable to track is mouse is down
 	var drawMode = true;
+	var currentColor = "blue";
 
 	canvas = $("#board");
 	console.log(canvas.height);
@@ -26,8 +27,11 @@ $(function() {
 	context = canvas[0].getContext("2d");
 	context.canvas.height = canvas.height();//set the Canvas width and Height
 	context.canvas.width = canvas.width();
-	if (image){
-		context.drawImage(image,0,0);
+	$('#savedImage').on('load', function() {
+		context.drawImage($('#savedImage')[0],0,0);
+	});
+	if($('#savedImage') != null){
+		context.drawImage($('#savedImage')[0],0,0);
 	}
 	canvas.on("mousedown", function(e){
 		if(drawMode) {down = true;} //set the class variable to down
@@ -95,6 +99,22 @@ $(function() {
 		}
 	}
 
+	// Change this to correct colors if changed!
+	var currentSecondaryColor = 'rgb(246, 76, 114)';
+	var currentTertiaryColor = 'rgb(125, 99, 143)';
+
+	function changeToolColor(color) {
+		document.getElementById("myModal").style.display = "none";
+		if(document.getElementById('marker').style.color == currentSecondaryColor) {
+			setTool(new marker(tool.size,color));
+		} else {
+			setTool(new marker(5,color));
+		}
+		currentColor = color;
+		changeClassButtonColor('wb-button', currentTertiaryColor);
+		changeSingleButtonColor('marker', currentSecondaryColor);
+	}
+
 	function draw(xPrev,yPrev,xPos,yPos) {
 		context.strokeStyle = tool.color;
 		context.lineWidth = tool.size*2;
@@ -145,67 +165,107 @@ $(function() {
 		}
 	}
 
-	/*document.addEventListener('keydown', function(event) {
-	    if(event.keyCode == 49) {
-	    	setTool(new marker(5,"blue"));
-			var tag = document.getElementById('tag');
-			tag.innerHTML = "Size: "+tool.size;
-	    }
-	    else if(event.keyCode == 50) {
-	        setTool(new highlighter(20,"yellow"));
-			var tag = document.getElementById('tag');
-			tag.innerHTML = "Size: "+tool.size;
-	    }
-	    else if(event.keyCode == 51) {
-	        setTool(new marker(100,"white"));
-			
-	    }
-		else if(event.keyCode == 187 || event.keyCode == 61) {
-			setTool(new marker(tool.size+5,document.getElementById('Color').value));
-			var tag = document.getElementById('tag');
-			tag.innerHTML = "Size: "+tool.size;
-	    }
-	    else if(event.keyCode == 189 || event.keyCode == 173) {
-	    	if(tool.size >5) {
-		        setTool(new marker(tool.size-5,document.getElementById('Color').value));
-				var tag = document.getElementById('tag');
-				tag.innerHTML = "Size: "+tool.size;
-			}
-		}
-	});
-
-	$("#Color").change(function() {
-		setTool(new marker(tool.size,$('#Color').val()));
-	});*/
+	var modal = document.getElementById("myModal");
 
 	$('#marker').click(function() {
-		setTool(new marker(5,"blue"));
-		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
-		changeSingleButtonColor('marker', '#F64C72');
+		setTool(new marker(5,currentColor));
+		changeClassButtonColor('wb-button', currentTertiaryColor);
+		changeSingleButtonColor('marker', currentSecondaryColor);
 	});
 	
-	$('#highlighter').click(function() {
+	/*$('#highlighter').click(function() {
 		setTool(new highlighter(20,"yellow"));
-		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
-		changeSingleButtonColor('highlighter', '#F64C72');
-	});
+		changeClassButtonColor('wb-button', currentTertiaryColor);
+		changeSingleButtonColor('highlighter', currentSecondaryColor);
+	});*/
 	
 	$('#eraser').click(function() {
 		setTool(new marker(100,"white"));
-		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
-		changeSingleButtonColor('eraser', '#F64C72');
+		changeClassButtonColor('wb-button', currentTertiaryColor);
+		changeSingleButtonColor('eraser', currentSecondaryColor);
 	});
 	
+	// Color and Modal Stuff
+	$('#colors').click(function() {
+		modal.style.display = "block";
+	});
+	
+	//Colors
+	$('#blue').click(function() {
+    changeToolColor("blue");
+	});
+
+	$('#red').click(function() {
+    changeToolColor("red");
+	});
+
+	$('#green').click(function() {
+    changeToolColor("green");
+	});
+
+	$('#brown').click(function() {
+    changeToolColor("brown");
+	});
+
+	$('#purple').click(function() {
+    changeToolColor("purple");
+	});
+
+	$('#black').click(function() {
+    changeToolColor("black");
+	});
+
+	$('#deeppink').click(function() {
+    changeToolColor("deeppink");
+	});
+
+	$('#gold').click(function() {
+    changeToolColor("gold");
+	});
+
+	$('#lightseagreen').click(function() {
+    changeToolColor("lightseagreen");
+	});
+
+	$('#mediumspringgreen').click(function() {
+    changeToolColor("mediumspringgreen");
+	});
+
+	$('#teal').click(function() {
+    changeToolColor("teal");
+	});
+
+	$('#slategrey').click(function() {
+    changeToolColor("slategrey");
+	});
+	//End Colors
+
+	window.onclick = function(event) {
+		if(event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	// End Modal Stuff
+	
 	$('#plus').click(function() {
-		setTool(new marker(tool.size+5,document.getElementById('Color').value));
-		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
-		changeSingleButtonColor('plus', '#F64C72');
+		if(document.getElementById('marker').style.color == currentSecondaryColor) {
+			setTool(new marker(tool.size+5,currentColor));
+		} else if (document.getElementById('highlighter').style.color == currentSecondaryColor) {
+			setTool(new highlighter(tool.size+5,"yellow"));
+		} else if (document.getElementById('eraser').style.color == currentSecondaryColor) {
+			setTool(new marker(tool.size+5, "white"));
+		}
 	});
 	
 	$('#minus').click(function() {
-		setTool(new marker(tool.size-5,document.getElementById('Color').value));
-		changeClassButtonColor('wb-button', 'rgb(125,99,143)');
-		changeSingleButtonColor('minus', '#F64C72');
+		if(document.getElementById('marker').style.color == currentSecondaryColor) {
+			setTool(new marker(tool.size-5,currentColor));
+		} else if (document.getElementById('highlighter').style.color == currentSecondaryColor) {
+			setTool(new highlighter(tool.size-5,"yellow"));
+		} else if(document.getElementById('eraser').style.color == currentSecondaryColor){
+			setTool(new marker(tool.size-5, "white"));
+		}
 	});
 
 	var tool = new marker(5,"blue"); //default marker tool of  size and blue color
@@ -263,7 +323,6 @@ function drawLine(xPrev,yPrev,xPos,yPos,color,size,highlighter) {
 	context.moveTo(xPrev,yPrev);
 	context.lineTo(xPos,yPos);
 	context.stroke();
-
 }
 
 function changeClassButtonColor(className, color) {
