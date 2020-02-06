@@ -16,7 +16,7 @@ Collaboration with users or coworkers on the internet often times requires someo
 
 # Core Feature
 
-![boardMeeting's Whiteboard Page](https://imgur.com/a/nsTvtvA)
+![boardMeeting's Whiteboard Page](https://i.imgur.com/Ifgo1Oa.png)
 
 
 # Reason for fork
